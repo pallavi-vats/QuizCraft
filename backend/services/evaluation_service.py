@@ -1,8 +1,7 @@
-from sqlalchemy.orm import Session
-from models.question_model import Question
+from models.attempt_model import Attempt
 
 
-def evaluate_answers(db: Session, answers):
+def evaluate_answers(db, answers):
 
     score = 0
     correct_ids = []
@@ -21,6 +20,11 @@ def evaluate_answers(db: Session, answers):
             correct_ids.append(question.id)
         else:
             wrong_ids.append(question.id)
+
+    attempt = Attempt(score=score, total=len(answers))
+    db.add(attempt)
+    db.commit()
+    db.refresh(attempt)
 
     return {
         "score": score,

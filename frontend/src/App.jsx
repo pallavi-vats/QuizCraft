@@ -1,19 +1,23 @@
-import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import DashboardLayout from "./layouts/DashboardLayout";
+
+import Home from "./pages/Home";
+import Quiz from "./pages/Quiz";
+import Result from "./pages/Result";
+import History from "./pages/History";
 
 function App() {
-  const [msg, setMsg] = useState("");
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/")
-      .then(res => res.json())
-      .then(data => setMsg(data.message));
-  }, []);
-
   return (
-    <div>
-      <h1>QuizCraft</h1>
-      <h2>{msg}</h2>
-    </div>
+    <Routes>
+
+      <Route element={<DashboardLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/quiz" element={<Quiz />} />
+        <Route path="/result" element={<Result />} />
+        <Route path="/history" element={<History />} />
+      </Route>
+
+    </Routes>
   );
 }
 
