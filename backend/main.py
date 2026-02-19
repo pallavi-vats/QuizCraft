@@ -4,6 +4,7 @@ from database import engine, Base
 
 from routes.question_routes import router as question_router
 from routes.quiz_routes import router as quiz_router
+from routes.submit_routes import router as submit_router
 
 
 app = FastAPI(
@@ -15,6 +16,7 @@ app = FastAPI(
 # Register routers
 app.include_router(question_router)
 app.include_router(quiz_router)
+app.include_router(submit_router)
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
